@@ -1,0 +1,15 @@
+{
+  "input": {
+    "type": "video",
+    "prompt": "cinematic portrait of a presenter speaking to camera, subtle natural motion, stable framing",
+    "negative_prompt": "blurry, low quality, worst quality, jitter, flicker, watermark, logo",
+    "width": 256,
+    "height": 256,
+    "frames": 1,
+    "fps": 1,
+    "steps": 2,
+    "guidance_scale": 2.5,
+    "filename_prefix": "startup-smoke-test",
+    "format": "video/h264-mp4"
+  }
+}

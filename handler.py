@@ -17,10 +17,18 @@ import runpod
 import websocket
 from runpod.serverless.utils import upload_file_to_bucket, upload_in_memory_object
 
-from network_volume import (
-    is_network_volume_debug_enabled,
-    run_network_volume_diagnostics,
-)
+try:
+    from network_volume import (
+        is_network_volume_debug_enabled,
+        run_network_volume_diagnostics,
+    )
+except ImportError:
+    def is_network_volume_debug_enabled() -> bool:
+        return False
+
+
+    def run_network_volume_diagnostics() -> None:
+        return None
 
 
 logging.basicConfig(level=logging.INFO)

@@ -20,4 +20,5 @@ RUN comfy model download --url https://huggingface.co/latent-consistency/lcm-lor
 RUN comfy model download --url https://huggingface.co/guoyww/animatediff/resolve/main/mm_sd_v15_v2.ckpt --relative-path models/animatediff_models --filename mm_sd_v15_v2.ckpt
 
 COPY handler.py /handler.py
+COPY test_input.json /test_input.json
 # COPY input/ /comfyui/input/
