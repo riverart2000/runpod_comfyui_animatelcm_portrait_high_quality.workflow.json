@@ -1,0 +1,92 @@
+{
+  "input": {
+    "workflow": {
+      "1": {
+        "inputs": {
+          "ckpt_name": "v1-5-pruned-emaonly.safetensors"
+        },
+        "class_type": "CheckpointLoaderSimple",
+        "_meta": {
+          "title": "CheckpointLoaderSimple"
+        }
+      },
+      "2": {
+        "inputs": {
+          "lora_name": "lcm-lora-sdv1-5.safetensors",
+          "strength_model": 0.9,
+          "strength_clip": 1
+        },
+        "class_type": "LoraLoader",
+        "_meta": {
+          "title": "LoraLoader"
+        }
+      },
+      "3": {
+        "inputs": {
+          "text": "cinematic portrait video of a confident presenter speaking to camera in a premium studio, subtle natural body motion, realistic face, natural blinking, clean skin detail, controlled lighting, shallow depth of field, documentary realism, high-end commercial production, stable framing"
+        },
+        "class_type": "CLIPTextEncode",
+        "_meta": {
+          "title": "CLIPTextEncode"
+        }
+      },
+      "4": {
+        "inputs": {
+          "text": "blurry, low quality, worst quality, low resolution, oversmoothed skin, distorted face, deformed eyes, bad anatomy, extra fingers, extra limbs, warped hands, jitter, flicker, frame inconsistency, ghosting, text, subtitles, watermark, logo"
+        },
+        "class_type": "CLIPTextEncode",
+        "_meta": {
+          "title": "CLIPTextEncode"
+        }
+      },
+      "5": {
+        "inputs": {
+          "value": 720
+        },
+        "class_type": "EmptyLatentImage",
+        "_meta": {
+          "title": "EmptyLatentImage"
+        }
+      },
+      "6": {
+        "inputs": {
+          "filename": "mm_sd_v15_v2.ckpt"
+        },
+        "class_type": "ADE_AnimateDiffLoaderGen1",
+        "_meta": {
+          "title": "ADE_AnimateDiffLoaderGen1"
+        }
+      },
+      "7": {
+        "inputs": {
+          "seed": 123456789,
+          "steps": 16,
+          "cfg": 2.8,
+          "sampler_name": "lcm",
+          "scheduler": "normal",
+          "denoise": 1
+        },
+        "class_type": "KSampler",
+        "_meta": {
+          "title": "KSampler"
+        }
+      },
+      "8": {
+        "inputs": {},
+        "class_type": "VAEDecode",
+        "_meta": {
+          "title": "VAEDecode"
+        }
+      },
+      "9": {
+        "inputs": {
+          "value": 16
+        },
+        "class_type": "VHS_VideoCombine",
+        "_meta": {
+          "title": "VHS_VideoCombine"
+        }
+      }
+    }
+  }
+}
