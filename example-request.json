@@ -12,6 +12,14 @@
       },
       "2": {
         "inputs": {
+          "model": [
+            "1",
+            0
+          ],
+          "clip": [
+            "1",
+            1
+          ],
           "lora_name": "lcm-lora-sdv1-5.safetensors",
           "strength_model": 0.9,
           "strength_clip": 1
@@ -23,7 +31,11 @@
       },
       "3": {
         "inputs": {
-          "text": "cinematic portrait video of a confident presenter speaking to camera in a premium studio, subtle natural body motion, realistic face, natural blinking, clean skin detail, controlled lighting, shallow depth of field, documentary realism, high-end commercial production, stable framing"
+          "text": "cinematic portrait video of a confident presenter speaking to camera in a premium studio, subtle natural body motion, realistic face, natural blinking, clean skin detail, controlled lighting, shallow depth of field, documentary realism, high-end commercial production, stable framing",
+          "clip": [
+            "2",
+            1
+          ]
         },
         "class_type": "CLIPTextEncode",
         "_meta": {
@@ -32,7 +44,11 @@
       },
       "4": {
         "inputs": {
-          "text": "blurry, low quality, worst quality, low resolution, oversmoothed skin, distorted face, deformed eyes, bad anatomy, extra fingers, extra limbs, warped hands, jitter, flicker, frame inconsistency, ghosting, text, subtitles, watermark, logo"
+          "text": "blurry, low quality, worst quality, low resolution, oversmoothed skin, distorted face, deformed eyes, bad anatomy, extra fingers, extra limbs, warped hands, jitter, flicker, frame inconsistency, ghosting, text, subtitles, watermark, logo",
+          "clip": [
+            "2",
+            1
+          ]
         },
         "class_type": "CLIPTextEncode",
         "_meta": {
@@ -41,7 +57,9 @@
       },
       "5": {
         "inputs": {
-          "value": 720
+          "width": 512,
+          "height": 720,
+          "batch_size": 16
         },
         "class_type": "EmptyLatentImage",
         "_meta": {
@@ -50,7 +68,12 @@
       },
       "6": {
         "inputs": {
-          "filename": "mm_sd_v15_v2.ckpt"
+          "model": [
+            "2",
+            0
+          ],
+          "model_name": "mm_sd_v15_v2.ckpt",
+          "beta_schedule": "autoselect"
         },
         "class_type": "ADE_AnimateDiffLoaderGen1",
         "_meta": {
@@ -64,7 +87,23 @@
           "cfg": 2.8,
           "sampler_name": "lcm",
           "scheduler": "normal",
-          "denoise": 1
+          "denoise": 1,
+          "model": [
+            "6",
+            0
+          ],
+          "positive": [
+            "3",
+            0
+          ],
+          "negative": [
+            "4",
+            0
+          ],
+          "latent_image": [
+            "5",
+            0
+          ]
         },
         "class_type": "KSampler",
         "_meta": {
@@ -72,7 +111,16 @@
         }
       },
       "8": {
-        "inputs": {},
+        "inputs": {
+          "samples": [
+            "7",
+            0
+          ],
+          "vae": [
+            "1",
+            2
+          ]
+        },
         "class_type": "VAEDecode",
         "_meta": {
           "title": "VAEDecode"
@@ -80,11 +128,33 @@
       },
       "9": {
         "inputs": {
-          "value": 16
+          "images": [
+            "8",
+            0
+          ],
+          "frame_rate": 16,
+          "loop_count": 0,
+          "filename_prefix": "animate-lcm-portrait",
+          "format": "video/h264-mp4",
+          "pingpong": false,
+          "save_output": true
         },
         "class_type": "VHS_VideoCombine",
         "_meta": {
           "title": "VHS_VideoCombine"
+        }
+      },
+      "10": {
+        "inputs": {
+          "filename_prefix": "animate-lcm-portrait-frame",
+          "images": [
+            "8",
+            0
+          ]
+        },
+        "class_type": "SaveImage",
+        "_meta": {
+          "title": "SaveImage"
         }
       }
     }
